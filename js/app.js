@@ -5,18 +5,30 @@ const todoBox = document.getElementById("todo-box")
 
 
 
-item.addEventListener("keyup" , function (event) {
-    
+item.addEventListener("keyup", function (event) {
+
     if (event.key == "Enter") {
-        
-       addTodo(this.value);
+
+
+        if (item.value === "") {
+
+            Swal.fire({
+                title: "Warning",
+                text: "Please write something before adding a todo!",
+                icon: "error"
+            });
+
+            return
+        }
+
+        addTodo(this.value);
         this.value = ""
-        
+
     }
 
-    
-    
-} )
+
+
+})
 
 const addTodo = (item) => {
 
@@ -28,13 +40,11 @@ const addTodo = (item) => {
       </li>
 
     `
-
-    todoBox.addEventListener("click" , function (event) {
-        
+    todoBox.addEventListener("click", function (event) {
 
 
         if (event.target.tagName == "I") {
-            
+
             event.target.parentElement.remove();
             return;
         }
@@ -48,10 +58,10 @@ const addTodo = (item) => {
 
 
     })
-    
 
 
-    
+
+
 
 }
 
