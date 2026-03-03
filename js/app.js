@@ -83,7 +83,7 @@ const addTodo = (item) => {
         console.log(lsTodoData);
         
         if (lsTodoData === null) {
-            addTodo()
+           return;
         }else
         {
             lsTodoData.forEach((todo)=>{
