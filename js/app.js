@@ -9,7 +9,6 @@ item.addEventListener("keyup", function (event) {
 
     if (event.key == "Enter") {
 
-
         if (item.value === "") {
 
             Swal.fire({
@@ -22,13 +21,29 @@ item.addEventListener("keyup", function (event) {
         }
 
         addTodo(this.value);
+        saveTodo();
         this.value = ""
 
     }
-
-
-
 })
+
+
+
+const saveTodo = ()=>{
+    const todo = document.querySelectorAll("#todo-box li")
+    console.log(todo);
+    const todoData = [];
+    todo.forEach((todo)=>{
+        todoData.push(todo.innerText);
+        
+    })
+    
+    console.log(todoData);
+    localStorage.setItem("todos" , JSON.stringify(todoData))
+    
+
+}   
+
 
 const addTodo = (item) => {
 
@@ -46,22 +61,37 @@ const addTodo = (item) => {
         if (event.target.tagName == "I") {
 
             event.target.parentElement.remove();
+            saveTodo()
             return;
         }
 
-
         if (event.target.tagName == "LI") {
             event.target.classList.toggle("done")
+            saveTodo()
+        }
+    })
+}
+
+// code for getdata from localstorage
+
+
+(
+    function (){
+        const lsTodoData = JSON.parse(localStorage.getItem("todos"))
+
+        
+        console.log(lsTodoData);
+        
+        if (lsTodoData === null) {
+            addTodo()
+        }else
+        {
+            lsTodoData.forEach((todo)=>{
+                addTodo(todo)
+            })
         }
 
 
-
-
-    })
-
-
-
-
-
-}
-
+    }
+)
+()
